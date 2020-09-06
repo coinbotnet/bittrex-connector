@@ -86,7 +86,7 @@ namespace Coinbot.Bittrex
             }
         }
 
-        public async Task<ServiceResponse<Transaction>> PlaceBuyOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double rate)
+        public async Task<ServiceResponse<Transaction>> PlaceBuyOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double rate, bool? testOnly = false)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -96,8 +96,8 @@ namespace Coinbot.Bittrex
                     apiKey,
                     baseCoin,
                     targetCoin,
-                    (stack / rate).ToString("0.##############", CultureInfo.InvariantCulture),
-                    rate.ToString("0.##############", CultureInfo.InvariantCulture),
+                    (stack / rate).ToString("0.00", CultureInfo.InvariantCulture),
+                    rate.ToString("0.00000000", CultureInfo.InvariantCulture),
                     Helpers.GetUnixTimeInSeconds()
                 );
 
@@ -123,7 +123,7 @@ namespace Coinbot.Bittrex
             }
         }
 
-        public async Task<ServiceResponse<Transaction>> PlaceSellOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double qty, double toSellFor, double? raisedChangeToSell = null)
+        public async Task<ServiceResponse<Transaction>> PlaceSellOrder(string baseCoin, string targetCoin, double stack, string apiKey, string secret, double qty, double toSellFor, double? raisedChangeToSell = null, bool? testOnly = false)
         {
             using (HttpClient client = new HttpClient())
             {
@@ -133,8 +133,8 @@ namespace Coinbot.Bittrex
                     apiKey,
                     baseCoin,
                     targetCoin,
-                    qty.ToString("0.##############", CultureInfo.InvariantCulture),
-                    raisedChangeToSell == null ? toSellFor.ToString("0.##############", CultureInfo.InvariantCulture) : raisedChangeToSell.Value.ToString("0.##############", CultureInfo.InvariantCulture),
+                    qty.ToString("0.00", CultureInfo.InvariantCulture),
+                    raisedChangeToSell == null ? toSellFor.ToString("0.00000000", CultureInfo.InvariantCulture) : raisedChangeToSell.Value.ToString("0.00000000", CultureInfo.InvariantCulture),
                     Helpers.GetUnixTimeInSeconds()
                 );
 
